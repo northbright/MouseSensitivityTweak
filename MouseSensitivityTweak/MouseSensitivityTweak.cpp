@@ -9,38 +9,38 @@
 #define DEF_SPEED        10
 
 BOOL IsSpeedValid(int nSpeed) {
-	return ((nSpeed >= MIN_SPEED) && (nSpeed <= MAX_SPEED)) ? TRUE : FALSE;
+    return ((nSpeed >= MIN_SPEED) && (nSpeed <= MAX_SPEED)) ? TRUE : FALSE;
 }
 
 int GetMouseSpeed() {
-	int nSpeed = 0;
+    int nSpeed = 0;
     BOOL fResult = SystemParametersInfo(SPI_GETMOUSESPEED,  // Get mouse information
-		                                0,                  // Not used
-		                                &nSpeed,            // Holds mouse speed
-		                                0);
+                                        0,                  // Not used
+										&nSpeed,            // Holds mouse speed
+										0);
 
-	if (!fResult || !IsSpeedValid(nSpeed)) {
-		return -1;
-	}
-	return nSpeed;
+    if (!fResult || !IsSpeedValid(nSpeed)) {
+        return -1;
+    }
+    return nSpeed;
 }
 
 BOOL SetMouseSpeed(int nSpeed) {
-	if (!IsSpeedValid(nSpeed)) {
-		return FALSE;
-	}
+    if (!IsSpeedValid(nSpeed)) {
+        return FALSE;
+    }
 
-	int nOldSpeed = GetMouseSpeed();
-	if (nOldSpeed == nSpeed) {
-		return TRUE;
-	}
+    int nOldSpeed = GetMouseSpeed();
+    if (nOldSpeed == nSpeed) {
+        return TRUE;
+    }
 
-	BOOL fResult = SystemParametersInfo(SPI_SETMOUSESPEED,  // Get mouse information
-		                                0,                  // Not used
-		                                PVOID(nSpeed),      // Holds mouse speed
-		                                SPIF_SENDCHANGE);   // Broadcasts the WM_SETTINGCHANGE message
+    BOOL fResult = SystemParametersInfo(SPI_SETMOUSESPEED,  // Get mouse information
+                                        0,                  // Not used
+										PVOID(nSpeed),      // Holds mouse speed
+										SPIF_SENDCHANGE);   // Broadcasts the WM_SETTINGCHANGE message
 
-	return fResult;
+    return fResult;
 }
 
 // Usage MouseSensitivityTweak <speed>
@@ -48,12 +48,12 @@ BOOL SetMouseSpeed(int nSpeed) {
 // MouseSensitivityTweak 16
 int _tmain(int argc, _TCHAR* argv[])
 {
-	int nSpeed = DEF_SPEED;
+    int nSpeed = DEF_SPEED;
 
-	if (argc != 2) {
-		return 0;
-	}
+    if (argc != 2) {
+        return 0;
+    }
 
-	nSpeed = _wtoi(argv[1]);
+    nSpeed = _wtoi(argv[1]);
     return SetMouseSpeed(nSpeed);
 }
