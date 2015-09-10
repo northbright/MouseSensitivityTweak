@@ -16,8 +16,8 @@ int GetMouseSpeed() {
     int nSpeed = 0;
     BOOL fResult = SystemParametersInfo(SPI_GETMOUSESPEED,  // Get mouse information
                                         0,                  // Not used
-										&nSpeed,            // Holds mouse speed
-										0);
+                                        &nSpeed,            // Holds mouse speed
+                                        0);
 
     if (!fResult || !IsSpeedValid(nSpeed)) {
         return -1;
@@ -37,8 +37,8 @@ BOOL SetMouseSpeed(int nSpeed) {
 
     BOOL fResult = SystemParametersInfo(SPI_SETMOUSESPEED,  // Get mouse information
                                         0,                  // Not used
-										PVOID(nSpeed),      // Holds mouse speed
-										SPIF_SENDCHANGE);   // Broadcasts the WM_SETTINGCHANGE message
+                                        PVOID(nSpeed),      // Holds mouse speed
+                                        SPIF_SENDCHANGE);   // Broadcasts the WM_SETTINGCHANGE message
 
     return fResult;
 }
